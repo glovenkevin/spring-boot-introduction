@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-wings-live
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: spring-demo
+  template:
+    metadata:
+      name: demo-wings-live
+      labels:
+        app: spring-demo
+    spec:
+      containers:
+        - name: app-spring
+          image: docker.io/app-wings:1.0
+          ports:
+            - containerPort: 8000
+          resources:
+            requests:
+              cpu: 200m
+              memory: 200Mi
+            limits:
+              cpu: 250m
+              memory: 250Mi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-spring-service
+spec:
+  selector:
+    app: spring-demo
+  ports:
+    - name: http
+      protocol: TCP
+      port: 80
+      targetPort: 8000
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-spring-wings
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: demo.wings.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: nginx-spring-service
+                port:
+                  name: http

@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: db-demo-live
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: mysql-demo-live
+  template:
+    metadata:
+      name: db-demo-live
+      labels:
+        name: mysql-demo-live
+    spec:
+      securityContext:
+        fsGroup: 20
+        runAsUser: 501
+        runAsGroup: 999
+      volumes:
+        - name: mysql-storage
+          nfs:
+            server: 192.168.64.1
+            path: "/Users/jen-jen/database/db-mysql-demo"
+      containers:
+        - name: mysql
+          image: docker.io/mariadb:10.4.11
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-storage
+              mountPath: /var/lib/mysql
+          env:
+            - name: MYSQL_USER
+              value: jenjen
+            - name: MYSQL_PASSWORD
+              value: secret
+            - name: MYSQL_ROOT_PASSWORD
+              value: secret
+            - name: SERVICE_NAME
+              value: mysql
+          resources:
+            requests:
+              cpu: 150m
+              memory: 150Mi
+            limits:
+              cpu: 200m
+              memory: 200Mi
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-demo-service
+spec:
+  selector:
+    name: mysql-demo-live
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql-demo-service-np
+spec:
+  type: NodePort
+  selector:
+    name: mysql-demo-live
+  ports:
+    - protocol: TCP
+      port: 3306
+      nodePort: 30007

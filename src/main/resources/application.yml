@@ -1,0 +1,26 @@
+server:
+  port: 8000
+  servlet:
+    context-path: '/api'
+
+spring:
+  profiles: default
+  devtools:
+    add-properties: false
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://kubernetes.local:30006/demo.wings
+    username: developer
+    password: developer
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 3
+      minimumIdle: 1
+      idleTimeout: 60000
+      maxLifetime: 300000
+  jpa:
+    show-sql: false
+
+logging:
+  level:
+    web: 'DEBUG'

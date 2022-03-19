@@ -1,0 +1,26 @@
+server:
+  port: 8000
+  servlet:
+    context-path: '/api'
+
+spring:
+  config:
+    activate:
+      on-profile: 'prod'
+  devtools:
+    add-properties: false
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://mysql-demo-service:3306/demo_wings_live
+    username: root
+    password: secret
+    hikari:
+      connectionTimeout: 20000
+      maximumPoolSize: 5
+      minimumIdle: 4
+  jpa:
+    show-sql: false
+
+logging:
+  level:
+    web: 'INFO'

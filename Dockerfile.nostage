@@ -1,0 +1,6 @@
+FROM openjdk:11-jre-slim
+COPY ./target/*.jar app.jar
+COPY ./config/application-prod.yml ./prod.yml
+ENTRYPOINT java -jar app.jar \
+    --spring.profiles.active=prod \
+    --spring.config.location=file:///prod.yml
