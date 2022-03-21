@@ -12,28 +12,16 @@ import org.springframework.transaction.annotation.Transactional
 @Transactional
 class UsersService (private val usersRepository: UsersRepository) {
 
-    fun getUserById(id : Int): UsersDto {
+    fun getUserById(id: Int): UsersDto {
         val user = usersRepository.findById(id).orElseThrow { UserNotFoundException() }
-        val userDto = UsersDto(
-            id = user.id,
-            userName = user.userName,
-            phoneNumber = user.phoneNumber,
-            email = user.email
-        )
-        return userDto
+        return UsersDto(user)
     }
 
     fun getUsers(): Any {
         val rtnUsers = mutableListOf<UsersDto>()
         val users = usersRepository.findAll()
         users.forEach { user ->
-            val userDto = UsersDto(
-                userName = user.userName,
-                email = user.email,
-                id = user.id,
-                phoneNumber = user.phoneNumber
-            )
-
+            val userDto = UsersDto(user)
             rtnUsers.add(userDto)
         }
         return rtnUsers
