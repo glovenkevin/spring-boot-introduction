@@ -4,10 +4,7 @@ import com.smu.tes.demo.entity.Users
 import com.smu.tes.demo.exception.UserNotFoundException
 import com.smu.tes.demo.repository.UsersRepository
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.jupiter.api.BeforeAll
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.TestInstance
-import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 import org.springframework.transaction.annotation.Transactional
@@ -34,6 +31,12 @@ class UserRepositoryTest (
         usersRepository.save(user)
     }
 
+    @AfterAll
+    fun clean() {
+        val user = usersRepository.findByEmail(email).orElseThrow { UserNotFoundException() }
+        usersRepository.deleteById(user.id)
+    }
+
     @Test
     fun userShouldExist() {
         val expected = usersRepository.selectEmailIsExist(email)
@@ -54,6 +57,14 @@ class UserRepositoryTest (
     fun userNotExist() {
         assertThrows<UserNotFoundException> {
             usersRepository.findById(10).orElseThrow { UserNotFoundException() }
+        }
+    }
+
+    @Test
+    fun userSuccessDeleted() {
+        val user = usersRepository.findByEmail(email).orElseThrow { UserNotFoundException() }
+        assertDoesNotThrow {
+            usersRepository.deleteById(user.id)
         }
     }
 }

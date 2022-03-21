@@ -6,6 +6,7 @@ import com.smu.tes.demo.repository.UsersRepository
 import com.smu.tes.demo.service.UsersService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
@@ -26,10 +27,9 @@ class UsersServiceTest @Autowired constructor (
             userName = "tess",
             address = "tes address",
             password = "pass",
-            email = "tes@email",
+            email = email,
             phoneNumber = "123"
         )
-
         usersService.addUser(request)
 
         val user = usersRepository.findByEmail(email).orElseThrow { UserNotFoundException() }
@@ -40,6 +40,23 @@ class UsersServiceTest @Autowired constructor (
     fun failGetUser() {
         assertThrows<UserNotFoundException> {
             usersService.getUserById(10)
+        }
+    }
+
+    @Test
+    fun successDeleteUser() {
+        val request = UsersRequest(
+            userName = "tess",
+            address = "tes address",
+            password = "pass",
+            email = email,
+            phoneNumber = "123"
+        )
+        usersService.addUser(request)
+
+        val user = usersRepository.findByEmail(email).orElseThrow { UserNotFoundException() }
+        assertDoesNotThrow {
+            usersService.deleteUser(user.id)
         }
     }
 }
