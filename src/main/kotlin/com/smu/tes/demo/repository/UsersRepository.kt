@@ -3,6 +3,7 @@ package com.smu.tes.demo.repository
 import com.smu.tes.demo.entity.Users
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
+import org.springframework.data.repository.query.Param
 import org.springframework.stereotype.Repository
 import java.util.*
 
@@ -18,6 +19,13 @@ interface UsersRepository: JpaRepository<Users, Int> {
         WHERE s.email = ?1
     """)
     fun selectEmailIsExist(email: String): Boolean
+
+    @Query("""
+        SELECT username
+        FROM users
+        WHERE email = :email
+    """, nativeQuery = true)
+    fun selectUsernameByEmail(@Param("email") email: String): Optional<String>
 
     fun findByEmail(email: String): Optional<Users>
 }

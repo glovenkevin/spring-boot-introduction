@@ -67,4 +67,11 @@ class UserRepositoryTest (
             usersRepository.deleteById(user.id)
         }
     }
+
+    @Test
+    fun testSelectByEmail() {
+        assertDoesNotThrow {
+            usersRepository.selectUsernameByEmail(email).orElseThrow { UserNotFoundException() }
+        }
+    }
 }

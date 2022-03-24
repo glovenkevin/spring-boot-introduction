@@ -3,6 +3,7 @@ package com.smu.tes.demo.controller
 import com.smu.tes.demo.model.BaseResponse
 import com.smu.tes.demo.model.request.UsersRequest
 import com.smu.tes.demo.service.UsersService
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.scheduling.annotation.Async
@@ -10,7 +11,7 @@ import org.springframework.web.bind.annotation.*
 import java.util.concurrent.CompletableFuture
 
 @RestController
-@RequestMapping("v1/users/")
+@RequestMapping("v1/users")
 class UsersController(private val usersService: UsersService) {
 
     @GetMapping("{id}")
