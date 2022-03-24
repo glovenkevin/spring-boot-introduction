@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture
 @RequestMapping("hello/world")
 class DemoController {
 
-    @GetMapping
+    @GetMapping(produces = ["application/json"], name = "Hello World Path")
     @CrossOrigin(maxAge = 3600)
     @Async
     fun helloWorld(): CompletableFuture<Any> {

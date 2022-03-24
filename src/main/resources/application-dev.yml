@@ -4,15 +4,16 @@ server:
     context-path: '/api'
 
 spring:
-  profiles:
-    active: default
+  config:
+    activate:
+      on-profile: dev
   devtools:
     add-properties: false
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    jdbc-url: jdbc:mysql://kubernetes.local:30006/demo.wings
-    username: developer
-    password: developer
+    jdbc-url: jdbc:mysql://localhost:3306/demo_wings
+    username: root
+    password:
     hikari:
       connectionTimeout: 20000
       maximumPoolSize: 3
@@ -21,10 +22,6 @@ spring:
       maxLifetime: 300000
   jpa:
     show-sql: false
-
-springdoc:
-  swagger-ui:
-    path: /api-docs
 
 logging:
   level:

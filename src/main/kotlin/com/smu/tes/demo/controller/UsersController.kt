@@ -14,7 +14,7 @@ import java.util.concurrent.CompletableFuture
 @RequestMapping("v1/users")
 class UsersController(private val usersService: UsersService) {
 
-    @GetMapping("{id}")
+    @GetMapping("{id}", produces = ["application/json"])
     @Async
     fun getUser(@PathVariable("id") id: Int): CompletableFuture<Any> {
         return try {
@@ -27,7 +27,7 @@ class UsersController(private val usersService: UsersService) {
         }
     }
 
-    @GetMapping
+    @GetMapping(produces = ["application/json"])
     @Async
     fun getUsers(): CompletableFuture<Any> {
         return try {
@@ -40,7 +40,7 @@ class UsersController(private val usersService: UsersService) {
         }
     }
 
-    @PutMapping
+    @PutMapping(produces = ["application/json"])
     @Async
     fun addUser(@RequestBody param: UsersRequest): CompletableFuture<Any> {
         return try {
@@ -53,7 +53,7 @@ class UsersController(private val usersService: UsersService) {
         }
     }
 
-    @PostMapping
+    @PostMapping(produces = ["application/json"])
     @Async
     fun updateUser(@RequestBody param: UsersRequest): CompletableFuture<Any> {
         return try {
@@ -66,7 +66,7 @@ class UsersController(private val usersService: UsersService) {
         }
     }
 
-    @DeleteMapping("{id}")
+    @DeleteMapping("{id}", produces = ["application/json"])
     @Async
     fun delUser(@PathVariable("id") id: Int): CompletableFuture<Any> {
         return try {
