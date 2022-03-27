@@ -26,3 +26,13 @@ spring:
 logging:
   level:
     web: 'DEBUG'
+
+sap:
+  connection:
+    sapClient: 110
+    userID: user
+    password: password
+    language: EN
+    host: 192.168.1.23
+    systemNumber: 01
+    r3name: SM

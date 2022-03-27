@@ -29,4 +29,13 @@ CREATE TABLE users (
 ```
 
 After that put the MySQL/MariaDB url in application.yml. 
-Then you ready to go.
+
+## Preparation 2
+
+In this project we use SAP. You need to put SapJCO inside folder lib in root folder.
+Don't forget to put de .so (linux) or .dll (windows) file.
+
+## API Docs
+
+I have included the swagger-ui in this project, 
+you can check the API url with the request response data in this path `/api/docs`.

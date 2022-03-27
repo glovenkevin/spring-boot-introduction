@@ -5,7 +5,7 @@ server:
 
 spring:
   profiles:
-    active: default
+    active: dev
   devtools:
     add-properties: false
   datasource:
@@ -24,8 +24,18 @@ spring:
 
 springdoc:
   swagger-ui:
-    path: /api-docs
+    path: /docs
 
 logging:
   level:
     web: 'DEBUG'
+
+sap:
+  connection:
+    sapClient: 100
+    userID: user
+    password: password
+    language: EN
+    host: 172.20.3.10
+    systemNumber: 00
+    r3name: SDV
