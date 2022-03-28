@@ -1,5 +1,6 @@
 package com.smu.tes.demo.entity
 
+import com.smu.tes.demo.model.request.UsersRequest
 import javax.persistence.*
 
 @Entity

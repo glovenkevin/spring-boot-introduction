@@ -1,6 +1,7 @@
 package com.smu.tes.demo.service
 
 import com.smu.tes.demo.entity.Users
+import com.smu.tes.demo.entity.mapper.UsersMapper
 import com.smu.tes.demo.exception.UserNotFoundException
 import com.smu.tes.demo.model.request.UsersRequest
 import com.smu.tes.demo.model.response.UsersDto
@@ -14,40 +15,29 @@ class UsersService (private val usersRepository: UsersRepository) {
 
     fun getUserById(id: Int): UsersDto {
         val user = usersRepository.findById(id).orElseThrow { UserNotFoundException() }
-        return UsersDto(user)
+        val mapper = UsersMapper()
+        return mapper.toModel(user)
     }
 
-    fun getUsers(): Any {
+    fun getUsers(): MutableList<UsersDto> {
+        val mapper = UsersMapper()
         val rtnUsers = mutableListOf<UsersDto>()
         val users = usersRepository.findAll()
         users.forEach { user ->
-            val userDto = UsersDto(user)
-            rtnUsers.add(userDto)
+            rtnUsers.add(mapper.toModel(user))
         }
         return rtnUsers
     }
 
     fun addUser(request: UsersRequest) {
-        val users = Users(
-            id = 0,
-            userName = request.userName,
-            email = request.email,
-            address = request.address,
-            phoneNumber = request.phoneNumber,
-            password = request.password
-        )
+        val mapper = UsersMapper()
+        val users = mapper.toEntity(request)
         usersRepository.save(users)
     }
 
     fun updateUser(request: UsersRequest) {
-        val users = Users(
-            id = request.id,
-            userName = request.userName,
-            email = request.email,
-            address = request.address,
-            phoneNumber = request.phoneNumber,
-            password = request.password
-        )
+        val mapper = UsersMapper()
+        val users = mapper.toEntity(request)
         usersRepository.save(users)
     }
 

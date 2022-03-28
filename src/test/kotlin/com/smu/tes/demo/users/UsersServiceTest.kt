@@ -1,39 +1,50 @@
 package com.smu.tes.demo.users
 
+import com.smu.tes.demo.entity.mapper.UsersMapper
 import com.smu.tes.demo.exception.UserNotFoundException
 import com.smu.tes.demo.model.request.UsersRequest
 import com.smu.tes.demo.repository.UsersRepository
 import com.smu.tes.demo.service.UsersService
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
-import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.transaction.annotation.Transactional
+import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.junit.jupiter.MockitoExtension
 
-@SpringBootTest
-@Transactional
-class UsersServiceTest @Autowired constructor (
-    private val usersService: UsersService,
-    private val usersRepository: UsersRepository
-) {
+@ExtendWith(MockitoExtension::class)
+class UsersServiceTest {
 
-    private val email = "tes@email"
+    @Mock private lateinit var usersRepository: UsersRepository
+    private lateinit var usersService: UsersService
+
+    @BeforeEach
+    internal fun setUp() {
+        usersService = UsersService(usersRepository)
+    }
+
+    @Test
+    fun successGetAllUser() {
+        val users = usersService.getUsers()
+        assertThat(users).isNotNull
+    }
 
     @Test
     fun successAddUser() {
         val request = UsersRequest(
+            id = 0,
             userName = "tess",
             address = "tes address",
             password = "pass",
-            email = email,
+            email = "tes@email",
             phoneNumber = "123"
         )
         usersService.addUser(request)
 
-        val user = usersRepository.findByEmail(email).orElseThrow { UserNotFoundException() }
-        assertThat(user.email).isEqualTo(email)
+        val mapper = UsersMapper()
+        Mockito.verify(usersRepository).save(mapper.toEntity(request))
     }
 
     @Test
@@ -45,18 +56,8 @@ class UsersServiceTest @Autowired constructor (
 
     @Test
     fun successDeleteUser() {
-        val request = UsersRequest(
-            userName = "tess",
-            address = "tes address",
-            password = "pass",
-            email = email,
-            phoneNumber = "123"
-        )
-        usersService.addUser(request)
-
-        val user = usersRepository.findByEmail(email).orElseThrow { UserNotFoundException() }
-        assertDoesNotThrow {
-            usersService.deleteUser(user.id)
-        }
+        val userId = 1
+        usersService.deleteUser(userId)
+        Mockito.verify(usersRepository).deleteById(userId)
     }
 }

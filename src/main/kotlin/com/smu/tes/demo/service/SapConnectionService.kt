@@ -1,11 +1,12 @@
-package com.smu.tes.demo.configuration
+package com.smu.tes.demo.service
 
 import com.sap.mw.jco.JCO
+import com.smu.tes.demo.configuration.SapConnectionConfiguration
 import org.springframework.stereotype.Service
 import kotlin.system.exitProcess
 
 @Service
-class SapDataSourceConfiguration(val sapConf: SapConnectionConfiguration) {
+class SapConnectionService(val sapConf: SapConnectionConfiguration) {
 
     fun setClient(): JCO.Client {
         val client = JCO.createClient(

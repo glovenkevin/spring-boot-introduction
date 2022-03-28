@@ -1,6 +1,6 @@
 package com.smu.tes.demo.sapconfiguration
 
-import com.smu.tes.demo.configuration.SapDataSourceConfiguration
+import com.smu.tes.demo.service.SapConnectionService
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertDoesNotThrow
 import org.slf4j.Logger
@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class SapDataSourceConfigurationTest @Autowired constructor (
-    private val sapDataSourceConfiguration: SapDataSourceConfiguration
+class SapConnectionServiceTest @Autowired constructor (
+    private val sapConnectionService: SapConnectionService
 ) {
 
     val log: Logger = LoggerFactory.getLogger(this::class.java)
@@ -18,7 +18,7 @@ class SapDataSourceConfigurationTest @Autowired constructor (
     @Test
     fun testConnect() {
         assertDoesNotThrow {
-            val client = sapDataSourceConfiguration.setClient()
+            val client = sapConnectionService.setClient()
             log.info("Connection SAP User: ${client.user}")
             log.info("Connection SAP isAlive: ${client.isAlive}")
 
