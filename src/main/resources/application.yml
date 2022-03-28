@@ -21,6 +21,16 @@ spring:
       maxLifetime: 300000
   jpa:
     show-sql: false
+  task:
+    execution:
+      pool:
+        max-size: 16
+        queue-capacity: 100
+        keep-alive: "10s"
+    scheduling:
+      thread-name-prefix: "jenjen-scheduller-"
+      pool:
+        size: 4
 
 springdoc:
   swagger-ui:

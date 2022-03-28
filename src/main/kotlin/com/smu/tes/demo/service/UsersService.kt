@@ -1,6 +1,5 @@
 package com.smu.tes.demo.service
 
-import com.smu.tes.demo.entity.Users
 import com.smu.tes.demo.entity.mapper.UsersMapper
 import com.smu.tes.demo.exception.UserNotFoundException
 import com.smu.tes.demo.model.request.UsersRequest
