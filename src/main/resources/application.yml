@@ -1,5 +1,6 @@
 server:
   port: 8000
+  shutdown: graceful
   servlet:
     context-path: '/api'
 
@@ -38,14 +39,7 @@ springdoc:
 
 logging:
   level:
-    web: 'DEBUG'
+    web: 'INFO'
 
 sap:
-  connection:
-    sapClient: 100
-    userID: user
-    password: password
-    language: EN
-    host: 172.20.3.10
-    systemNumber: 00
-    r3name: SDV
+  active-profile: 'SAP-SMU'

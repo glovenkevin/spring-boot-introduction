@@ -35,3 +35,4 @@ build/
 ### SAP ###
 *.trc
 /lib
+*.jcoDestination

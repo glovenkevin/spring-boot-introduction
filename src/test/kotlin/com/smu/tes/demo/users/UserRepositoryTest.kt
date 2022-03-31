@@ -6,11 +6,9 @@ import com.smu.tes.demo.repository.UsersRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.boot.test.context.SpringBootTest
-import org.springframework.transaction.annotation.Transactional
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest
 
-@SpringBootTest
-@Transactional
+@DataJpaTest
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UserRepositoryTest (
     @Autowired
@@ -29,12 +27,6 @@ class UserRepositoryTest (
             address = "tes"
         )
         usersRepository.save(user)
-    }
-
-    @AfterAll
-    fun clean() {
-        val user = usersRepository.findByEmail(email).orElseThrow { UserNotFoundException() }
-        usersRepository.deleteById(user.id)
     }
 
     @Test

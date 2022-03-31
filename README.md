@@ -33,7 +33,8 @@ After that put the MySQL/MariaDB url in application.yml.
 ## Preparation 2
 
 In this project we use SAP. You need to put SapJCO inside folder lib in root folder.
-Don't forget to put de .so (linux) or .dll (windows) file.
+Don't forget to put de .so (linux) or .dll (windows) file. 
+This project using SapJCO3, so if you don't have those file you can comment or remove SapJcoDataSource.
 
 ## API Docs
 

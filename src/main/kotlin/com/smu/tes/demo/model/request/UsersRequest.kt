@@ -1,5 +1,7 @@
 package com.smu.tes.demo.model.request
 
+import com.smu.tes.demo.entity.Users
+
 data class UsersRequest (
     val id: Int = 0,
     val userName: String,
@@ -7,4 +9,13 @@ data class UsersRequest (
     val address: String,
     val phoneNumber: String,
     val password: String
+)
+
+fun UsersRequest.toEntity() = Users(
+    id = id,
+    userName = userName,
+    email = email,
+    address = address,
+    phoneNumber = phoneNumber,
+    password = password
 )

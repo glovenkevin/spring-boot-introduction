@@ -4,9 +4,6 @@ server:
     context-path: '/api'
 
 spring:
-  config:
-    activate:
-      on-profile: dev
   devtools:
     add-properties: false
   datasource:
@@ -28,11 +25,25 @@ logging:
     web: 'DEBUG'
 
 sap:
-  connection:
-    sapClient: 110
-    userID: user
-    password: password
-    language: EN
-    host: 192.168.1.23
-    systemNumber: 01
-    r3name: SM
+  connections:
+    - connection-id: SAP-SMU
+      sap-client: 110
+      user-id: ${USER_SAP:abap05}
+      password: ${PASSWORD_SAP:password0505}
+      language: EN
+      host: 172.20.3.10
+      system-number: "00"
+      r3name: SDV
+      type: single
+
+    - connection-id: SAP-AMG
+      sap-client: 110
+      user-id: ${USER_SAP:abap10}
+      password: ${PASSWORD_SAP:password1010}
+      language: EN
+      host: 172.20.5.23
+      system-number: "00"
+      r3name: SDV
+      type: pool
+      min-pool: 3
+      max-pool: 5

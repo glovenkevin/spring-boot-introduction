@@ -1,8 +1,8 @@
 package com.smu.tes.demo.users
 
-import com.smu.tes.demo.entity.mapper.UsersMapper
 import com.smu.tes.demo.exception.UserNotFoundException
 import com.smu.tes.demo.model.request.UsersRequest
+import com.smu.tes.demo.model.request.toEntity
 import com.smu.tes.demo.repository.UsersRepository
 import com.smu.tes.demo.service.UsersService
 import org.assertj.core.api.Assertions.assertThat
@@ -42,9 +42,7 @@ class UsersServiceTest {
             phoneNumber = "123"
         )
         usersService.addUser(request)
-
-        val mapper = UsersMapper()
-        Mockito.verify(usersRepository).save(mapper.toEntity(request))
+        Mockito.verify(usersRepository).save(request.toEntity())
     }
 
     @Test

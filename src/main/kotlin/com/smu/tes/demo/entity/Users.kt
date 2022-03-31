@@ -1,6 +1,6 @@
 package com.smu.tes.demo.entity
 
-import com.smu.tes.demo.model.request.UsersRequest
+import com.smu.tes.demo.model.response.UsersDto
 import javax.persistence.*
 
 @Entity
@@ -21,4 +21,11 @@ data class Users(
     var phoneNumber: String,
 
     var password: String
+)
+
+fun Users.toModel() = UsersDto (
+    id = id,
+    userName = userName,
+    phoneNumber = phoneNumber,
+    email = email
 )
