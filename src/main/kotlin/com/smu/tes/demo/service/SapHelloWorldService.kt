@@ -23,9 +23,9 @@ class SapHelloWorldService(
         }
 
         val functionName = "ZFN_WEB_W_GET_FORMNH_BY_PO"
-        val tableName = "PI_DATA"
         val function = jCoDestination.repository.getFunction(functionName) ?: throw SapFunctionNotFound(functionName)
 
+        val tableName = "PI_DATA"
         var sapTable = function.tableParameterList.getTable(tableName)
         sapTable.appendRow()
         sapTable.setValue("EBELN", po)

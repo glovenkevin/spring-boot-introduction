@@ -1,8 +1,8 @@
 package com.smu.tes.demo.users
 
-import com.smu.tes.demo.entity.Users
+import com.smu.tes.demo.entity.main.Users
 import com.smu.tes.demo.exception.UserNotFoundException
-import com.smu.tes.demo.repository.UsersRepository
+import com.smu.tes.demo.repository.main.UsersRepository
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.*
 import org.springframework.beans.factory.annotation.Autowired

@@ -1,4 +1,4 @@
-package com.smu.tes.demo.entity
+package com.smu.tes.demo.entity.main
 
 import com.smu.tes.demo.model.response.UsersDto
 import javax.persistence.*

@@ -1,6 +1,6 @@
-package com.smu.tes.demo.repository
+package com.smu.tes.demo.repository.main
 
-import com.smu.tes.demo.entity.Users
+import com.smu.tes.demo.entity.main.Users
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.data.jpa.repository.Query
 import org.springframework.data.repository.query.Param

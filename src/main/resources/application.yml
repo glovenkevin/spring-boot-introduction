@@ -20,6 +20,11 @@ spring:
       minimumIdle: 1
       idleTimeout: 60000
       maxLifetime: 300000
+  general-datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://kubernetes.local:3306/websap_general
+    username: developer
+    password: developer
   jpa:
     show-sql: false
   task:
@@ -33,6 +38,10 @@ spring:
       pool:
         size: 4
 
+hibernate:
+  hbm2ddl:
+    auto: none
+
 springdoc:
   swagger-ui:
     path: /docs
@@ -42,4 +51,6 @@ logging:
     web: 'INFO'
 
 sap:
-  active-profile: 'SAP-SMU'
+  enabled: false
+  active-profile: "WM-AA01"
+  implementation: db

@@ -10,6 +10,6 @@ data class SapConnection(
     override var host: String = "",
     override var systemNumber: String = "",
     override var r3name: String = "",
-    override var minPool: String = "",
-    override var maxPool: String = ""
+    override var minPool: String? = "",
+    override var maxPool: String? = ""
 ) : IConnection

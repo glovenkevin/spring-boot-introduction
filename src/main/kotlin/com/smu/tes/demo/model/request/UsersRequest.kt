@@ -1,6 +1,6 @@
 package com.smu.tes.demo.model.request
 
-import com.smu.tes.demo.entity.Users
+import com.smu.tes.demo.entity.main.Users
 
 data class UsersRequest (
     val id: Int = 0,

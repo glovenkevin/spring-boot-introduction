@@ -17,6 +17,11 @@ spring:
       minimumIdle: 1
       idleTimeout: 60000
       maxLifetime: 300000
+  general-datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://localhost:3306/websap_general
+    username: root
+    password:
   jpa:
     show-sql: false
 

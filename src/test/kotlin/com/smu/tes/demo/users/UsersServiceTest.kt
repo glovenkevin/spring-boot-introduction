@@ -3,7 +3,7 @@ package com.smu.tes.demo.users
 import com.smu.tes.demo.exception.UserNotFoundException
 import com.smu.tes.demo.model.request.UsersRequest
 import com.smu.tes.demo.model.request.toEntity
-import com.smu.tes.demo.repository.UsersRepository
+import com.smu.tes.demo.repository.main.UsersRepository
 import com.smu.tes.demo.service.UsersService
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.BeforeEach

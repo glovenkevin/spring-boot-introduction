@@ -3,10 +3,12 @@ package com.smu.tes.demo.configuration
 import com.sap.conn.jco.JCoDestination
 import com.sap.conn.jco.JCoDestinationManager
 import com.sap.conn.jco.ext.DestinationDataProvider
-import com.sap.conn.jco.ext.Environment
+import com.smu.tes.demo.repository.general.SapConfigRepository
 import org.springframework.beans.factory.annotation.Value
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.transaction.annotation.Transactional
 import java.io.File
 import java.io.FileOutputStream
 import java.util.*
@@ -14,12 +16,11 @@ import java.util.*
 @Configuration
 class SapDatasourceConfiguration(
     @Value("\${sap.active-profile}")
-    val activeSapConnection: String,
-    val yamlSapConnections: YamlSapConnections
+    private val activeSapConnection: String
 ) {
 
     @Deprecated("This is not a good choice to create SapJCO Connection and should not be used on production")
-    fun setJcoDestination(): JCoDestination {
+    fun setJcoDestinationManual(): JCoDestination {
         val configName = ""
         val props = Properties()
         props.setProperty(DestinationDataProvider.JCO_ASHOST, "172.20.3.10")
@@ -46,12 +47,16 @@ class SapDatasourceConfiguration(
         }
     }
 
-    // Notes: https://answers.sap.com/answers/8555945/view.html
     @Bean
+    @ConditionalOnExpression("'\${sap.implementation}' == 'yaml' and '\${sap.enabled}' == 'true'")
     fun setJcoDestinationFromYaml(): JCoDestination {
-        val connManager = SapConnectionManager(yamlSapConnections)
-        val yamlDestinationDataProvider = YamlDestinationDataProvider(connManager)
-        Environment.registerDestinationDataProvider(yamlDestinationDataProvider)
+        return JCoDestinationManager.getDestination(activeSapConnection)
+    }
+
+    @Bean
+    @Transactional("generalTransactionManager")
+    @ConditionalOnExpression("'\${sap.implementation}' == 'db' and '\${sap.enabled}' == 'true'")
+    fun setJcoDestinationFromDatabase(sapConfigRepository: SapConfigRepository): JCoDestination {
         return JCoDestinationManager.getDestination(activeSapConnection)
     }
 

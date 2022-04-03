@@ -1,0 +1,22 @@
+spring:
+  devtools:
+    add-properties: false
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://localhost:3306/demo_wings
+    username: root
+    password:
+  general-datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    jdbc-url: jdbc:mysql://localhost:3306/websap_general
+    username: root
+    password:
+
+sap:
+  enabled: true
+  implementation: db
+  active-profile: "WM-AA01"
+
+logging:
+  level:
+    web: 'DEBUG'

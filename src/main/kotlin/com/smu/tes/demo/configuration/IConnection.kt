@@ -10,6 +10,6 @@ interface IConnection {
     var host: String
     var systemNumber: String
     var r3name: String
-    var minPool: String
-    var maxPool: String
+    var minPool: String?
+    var maxPool: String?
 }
