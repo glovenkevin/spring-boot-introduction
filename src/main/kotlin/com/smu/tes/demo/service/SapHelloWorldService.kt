@@ -2,9 +2,11 @@ package com.smu.tes.demo.service
 
 import com.sap.conn.jco.JCoDestination
 import com.smu.tes.demo.exception.SapFunctionNotFound
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression
 import org.springframework.stereotype.Service
 
 @Service
+@ConditionalOnExpression("'\${sap.enabled}' == 'true'")
 class SapHelloWorldService(
     val jCoDestination: JCoDestination
 ) {

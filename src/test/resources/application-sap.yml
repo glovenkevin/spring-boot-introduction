@@ -13,7 +13,7 @@ spring:
     password:
 
 sap:
-  enabled: true
+  enabled: false
   implementation: db
   active-profile: "WM-AA01"
 

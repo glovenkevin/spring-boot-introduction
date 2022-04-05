@@ -35,6 +35,11 @@ class GeneralDatasourceConfiguration {
         val jpaVendorAdapter = HibernateJpaVendorAdapter()
         entityManager.jpaVendorAdapter = jpaVendorAdapter
 
+        val properties = mutableMapOf<String, Any>()
+        properties["hibernate.hbm2ddl.auto"] = "none"
+        properties["hibernate.dialect"] = "org.hibernate.dialect.MySQL55Dialect"
+        entityManager.setJpaPropertyMap(properties)
+
         return entityManager
     }
 

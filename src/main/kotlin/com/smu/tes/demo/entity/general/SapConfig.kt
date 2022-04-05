@@ -4,7 +4,7 @@ import com.smu.tes.demo.configuration.SapConnection
 import javax.persistence.*
 
 @Entity
-@Table(name = "m_sap_config")
+@Table(name = "m_sap_config", schema = "websap_general")
 data class SapConfig (
 
     @Id
