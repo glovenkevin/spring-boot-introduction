@@ -2,6 +2,7 @@ package com.smu.tes.demo.configuration
 
 import com.sap.conn.jco.ext.DestinationDataEventListener
 import com.sap.conn.jco.ext.DestinationDataProvider
+import com.smu.tes.demo.exception.SapConnectionNotFound
 import java.util.*
 
 /* Notes: Idea Source https://stackoverflow.com/a/3524861/6759373 */
@@ -9,8 +10,8 @@ class YamlDestinationDataProvider(private val connectionManager : IConnectionMan
 
     private lateinit var listener : DestinationDataEventListener
 
-    override fun getDestinationProperties(destinationId: String): Properties? {
-        val credential = connectionManager.getCredentials(destinationId) ?: return null
+    override fun getDestinationProperties(destinationId: String): Properties {
+        val credential = connectionManager.getCredentials(destinationId) ?: throw SapConnectionNotFound(destinationId)
         val connection = credential.connection
 
         val props = Properties()
